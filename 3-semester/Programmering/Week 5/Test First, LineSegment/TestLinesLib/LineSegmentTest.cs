@@ -59,7 +59,8 @@ public class LineSegmentTest
         LineSegment other = new LineSegment(3, 7);
         LineSegment expectedUnion = new LineSegment(1, 7);
 
-        Assert.AreEqual(expectedUnion.ToString(), lineSegment.Union(other).ToString());
+        LineSegment? union = lineSegment.Union(other);
+        Assert.AreEqual(expectedUnion?.ToString(), union?.ToString());
     }
 
     [TestMethod]
