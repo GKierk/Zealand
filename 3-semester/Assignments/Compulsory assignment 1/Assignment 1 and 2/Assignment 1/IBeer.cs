@@ -16,19 +16,19 @@ public interface IBeer
     /// </summary>
     /// <param name="Id">The ID to validate.</param>
     /// <returns>true if the ID is valid; otherwise, throw an appropriate exception.</returns>
-    public bool ValidateId(int? Id);
+    public bool ValidateId(int id);
 
     /// <summary>
     /// Validates the name of the beer.
     /// </summary>
     /// <param name="Name">The name to validate.</param>
     /// <returns>true if the name is valid; otherwise, throw an appropriate exception.</returns>
-    public bool ValidateName(string? Name);
+    public bool ValidateName(string? name);
 
     /// <summary>
     /// Validates the Alcohol by Volume (ABV) of the beer.
     /// </summary>
     /// <param name="Abv">The ABV to validate.</param>
     /// <returns>true if the ABV is valid; otherwise, throw an appropriate exception.</returns>
-    public bool ValidateAbv(double? Abv);
+    public bool ValidateAbv(double abv);
 }

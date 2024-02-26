@@ -5,15 +5,15 @@
 /// </summary>
 public class Beer : IBeer
 {
-    private int? id;
+    private int id;
     private string? name;
-    private double? abv;
+    private double abv;
 
     /// <summary>
     /// Gets or sets the Id of the Beer.
     /// </summary>
     /// <value>Id must be greater than 0</value>
-    public int? Id
+    public int Id
     {
         get { return id; }
         set
@@ -45,7 +45,7 @@ public class Beer : IBeer
     /// Gets or sets the Abv of the Beer.
     /// </summary>
     /// <value>Abv must be between 0 and 67</value></value>
-    public double? Abv
+    public double Abv
     {
         get { return abv; }
         set
@@ -70,9 +70,9 @@ public class Beer : IBeer
     /// </summary>
     /// <paramref name="Id"/> must be greater than 0</paramref>
     /// <returns>true if the ID is valid; otherwise, throws an ArgumentOutOfRangeException.</returns>
-    public bool ValidateId(int? Id)
+    public bool ValidateId(int id)
     {
-        if (Id != null && 0 < Id)
+        if (0 < id)
         {
             return true;
         }
@@ -87,9 +87,9 @@ public class Beer : IBeer
     /// </summary>
     /// <paramref name="Name"/> must be at least 3 characters long</paramref>
     /// <returns>true if the ID is valid; otherwise, throws an ArgumenException.</returns>
-    public bool ValidateName(string? Name)
+    public bool ValidateName(string? name)
     {
-        if (Name != null && 3 <= Name.Length)
+        if (name != null && 3 <= name.Length)
         {
             return true;
         }
@@ -104,9 +104,9 @@ public class Beer : IBeer
     /// </summary>
     /// <paramref name="Abv"/> must be between 0 and 67</paramref>
     /// <returns>true if the ID is valid; otherwise, throws an ArgumentOutOfRangeException.</returns>
-    public bool ValidateAbv(double? Abv)
+    public bool ValidateAbv(double abv)
     {
-        if (Abv != null && 0 <= Abv && Abv <= 67)
+        if (0 <= abv && abv <= 67)
         {
             return true;
         }
