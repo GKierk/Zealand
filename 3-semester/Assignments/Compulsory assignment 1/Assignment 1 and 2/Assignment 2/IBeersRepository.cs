@@ -14,43 +14,45 @@ public interface IBeersRepository
     /// <summary>
     /// Gets a beer by its Alcohol by Volume (Abv).
     /// </summary>
-    /// <param name="Abv">The Abv of the beer.</param>
-    /// <returns>The beer with the specified Abv.</returns>
-    public Beer Get(double Abv);
+    /// <param name="minAbv">The minimum Abv of the beer.</param>
+    /// <param name="maxAbv">The maximum Abv of the beer.</param>
+    /// <returns>The beer with the specified Abv between the min and max.</returns>
+    public List<Beer> Get(double minAbv=0, double maxAbv=67);
 
     /// <summary>
     /// Gets a beer by its name and Alcohol by Volume (Abv).
     /// </summary>
     /// <param name="Name">The name of the beer.</param>
-    /// <param name="Abv">The Abv of the beer.</param>
+    /// <param name="minAbv">The minimum Abv of the beer.</param>
+    /// <param name="maxAbv">The maximum Abv of the beer.</param>
     /// <returns>The beer with the specified name and Abv.</returns>
-    public Beer Get(string Name, double Abv);
+    public List<Beer> Get(string Name, double minAbv=0, double maxAbv=67);
 
     /// <summary>
     /// Gets a beer by its ID.
     /// </summary>
     /// <param name="Id">The ID of the beer.</param>
     /// <returns>The beer with the specified ID.</returns>
-    public Beer GetByID(int? Id);
+    public Beer? GetByID(int Id);
 
     /// <summary>
     /// Adds a new beer.
     /// </summary>
     /// <param name="beer">The beer to add.</param>
     /// <returns>The added beer.</returns>
-    public Beer Add(Beer beer);
+    public Beer? Add(Beer beer);
 
     /// <summary>
     /// Deletes a beer by its ID.
     /// </summary>
     /// <param name="Id">The ID of the beer to delete.</param>
     /// <returns>The deleted beer.</returns>
-    public Beer Delete(int? Id);
+    public Beer? Delete(int Id);
 
     /// <summary>
     /// Updates a beer.
     /// </summary>
     /// <param name="beer">The beer to update.</param>
     /// <returns>The updated beer.</returns>
-    public Beer Update(Beer beer);
+    public Beer? Update(int id, Beer beer);
 }
