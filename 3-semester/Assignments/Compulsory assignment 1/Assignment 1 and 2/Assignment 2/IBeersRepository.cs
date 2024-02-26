@@ -1,6 +1,4 @@
-﻿using Drinks;
-
-namespace BeersRepository;
+﻿namespace Drinks.Repository;
 
 /// <summary>
 /// Interface for the Beers Repository.
