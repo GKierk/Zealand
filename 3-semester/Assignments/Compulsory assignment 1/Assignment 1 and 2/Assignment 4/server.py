@@ -12,56 +12,67 @@ def random_number(connectionSocket):
     message = "Enter two numbers separated by a space: "
     connectionSocket.send(message.encode())
     numbers = connectionSocket.recv(1024).decode()
-    number1, number2 = numbers.split()
-    if number1 > number2:
-        return randint(number2, number1)
-    else:
-      return randint(number1, number2)
+    try:
+      number1, number2 = numbers.split(" ")
+      if number1 > number2:
+          return randint(number2, number1)
+      else:
+        return randint(number1, number2)
+    except ValueError:
+        return "Invalid input, please enter two numbers separated by a space"
 
 def add_numbers(connectionSocket):
     message = "Enter two numbers separated by a space: "
     connectionSocket.send(message.encode())
     numbers = connectionSocket.recv(1024).decode()
-    number1, number2 = numbers.split()
-    return number1 + number2
+    number1, number2 = numbers.split(" ")
+    number1 = int(number1)
+    number2 = int(number2)
+    try:
+      return str (number1 + number2)
+    except ValueError:
+        return "Invalid input, please enter two numbers separated by a space"
 
 def subtract_numbers(connectionSocket):
     message = "Enter two numbers separated by a space: "
     connectionSocket.send(message.encode())
     numbers = connectionSocket.recv(1024).decode()
-    number1, number2 = numbers.split()
-    if number1 > number2:
-        return number1 - number2
-    else:
-      return number2 - number1
+    number1, number2 = numbers.split(" ")
+    try:
+      if number1 > number2:
+          return number1 - number2
+      else:
+        return number2 - number1
+    except ValueError:
+        return "Invalid input, please enter two numbers separated by a space"
 
 def handle_protocol(connectionSocket, addr):
     sentence = connectionSocket.recv(1024).decode()
     sentence = sentence.lower()
     match sentence:
         case "random":
-            random_number(connectionSocket)
+            return random_number(connectionSocket)
         case "add":
-            add_numbers(connectionSocket)
+            return add_numbers(connectionSocket)
         case "subtract":
-            subtract_numbers(connectionSocket)
+            return subtract_numbers(connectionSocket)
         case _:
-            connectionSocket.send("Invalid command".encode())
+            return connectionSocket.send("Invalid command".encode())
 
-def handle_client(connectionSocket, addr):
+def handle_client_request(connectionSocket, addr):
     print(addr[0])
     handle_protocol(connectionSocket, addr)
     connectionSocket.close()
 
-def handle_server():
+def start_server():
     while True:
         connectionSocket, addr = serverSocket.accept()
-        t = Thread(target=handle_client, args=(connectionSocket, addr))
+        t = Thread(target=handle_client_request, args=(connectionSocket, addr))
         t.start()
 
 
 def main():
-    handle_server()
+    start_server()
 
 if __name__ == "__main__":
     main()
