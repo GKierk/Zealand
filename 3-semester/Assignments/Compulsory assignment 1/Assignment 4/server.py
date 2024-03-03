@@ -2,7 +2,7 @@ from socket import *
 from random import randint
 from threading import Thread
 
-serverPort = 12000
+serverPort = 5000
 serverSocket = socket(AF_INET, SOCK_STREAM)
 serverSocket.bind(('', serverPort))
 serverSocket.listen(1)
