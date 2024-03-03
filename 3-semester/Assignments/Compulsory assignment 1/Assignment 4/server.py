@@ -13,13 +13,17 @@ def random_number(connectionSocket):
     connectionSocket.send(message.encode())
     numbers = connectionSocket.recv(1024).decode()
     try:
-      number1, number2 = numbers.split(" ")
-      if number1 > number2:
-          return randint(number2, number1)
-      else:
-        return randint(number1, number2)
+        number1, number2 = numbers.split(" ")
+        number1 = int(number1)
+        number2 = int(number2)
+        if number1 > number2:
+            connectionSocket.send(str(randint(number2, number1)).encode())
+            return
+        else:
+            connectionSocket.send(str(randint(number1, number2)).encode())
     except ValueError:
-        return "Invalid input, please enter two numbers separated by a space"
+        connectionSocket.send("Invalid input, please enter two numbers separated by a space".encode())
+        return
 
 def add_numbers(connectionSocket):
     message = "Enter two numbers separated by a space: "
@@ -29,35 +33,46 @@ def add_numbers(connectionSocket):
     number1 = int(number1)
     number2 = int(number2)
     try:
-      return str (number1 + number2)
+        connectionSocket.send(str(number1 + number2).encode())
+        return
     except ValueError:
-        return "Invalid input, please enter two numbers separated by a space"
+        connectionSocket.send("Invalid input, please enter two numbers separated by a space".encode())
+        return
 
 def subtract_numbers(connectionSocket):
     message = "Enter two numbers separated by a space: "
     connectionSocket.send(message.encode())
     numbers = connectionSocket.recv(1024).decode()
     number1, number2 = numbers.split(" ")
+    number1 = int(number1)
+    number2 = int(number2)
     try:
-      if number1 > number2:
-          return number1 - number2
-      else:
-        return number2 - number1
+        if number1 > number2:
+            connectionSocket.send(str(number1 - number2).encode())
+            return
+        else:
+            connectionSocket.send(str(number2 - number1).encode())
+            return
     except ValueError:
-        return "Invalid input, please enter two numbers separated by a space"
+        connectionSocket.send("Invalid input, please enter two numbers separated by a space".encode())
+        return
 
 def handle_protocol(connectionSocket, addr):
     sentence = connectionSocket.recv(1024).decode()
     sentence = sentence.lower()
     match sentence:
         case "random":
-            return random_number(connectionSocket)
+            random_number(connectionSocket)
+            return
         case "add":
-            return add_numbers(connectionSocket)
+            add_numbers(connectionSocket)
+            return
         case "subtract":
-            return subtract_numbers(connectionSocket)
+            subtract_numbers(connectionSocket)
+            return
         case _:
-            return connectionSocket.send("Invalid command".encode())
+            connectionSocket.send("Invalid command".encode())
+            return
 
 def handle_client_request(connectionSocket, addr):
     print(addr[0])
