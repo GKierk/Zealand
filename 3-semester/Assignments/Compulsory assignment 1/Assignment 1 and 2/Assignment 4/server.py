@@ -1,5 +1,6 @@
 from socket import *
 from random import randint
+from threading import Thread
 
 serverPort = 12000
 serverSocket = socket(AF_INET, SOCK_STREAM)
@@ -55,7 +56,8 @@ def handle_client(connectionSocket, addr):
 def handle_server():
     while True:
         connectionSocket, addr = serverSocket.accept()
-        handle_client(connectionSocket, addr)
+        t = Thread(target=handle_client, args=(connectionSocket, addr))
+        t.start()
 
 
 def main():
