@@ -23,17 +23,50 @@ def random_number(connectionSocket, data):
         connectionSocket.send(json.dumps({"error": "Invalid input"}).encode())
         return
 
+def add(connectionSocket, data):
+    try:
+        number1, number2 = data["numbers"].split()
+        number1 = int(number1)
+        number2 = int(number2)
+        connectionSocket.send(json.dumps({"response": number1 + number2}).encode())
+        return
+    except ValueError:
+        connectionSocket.send(json.dumps({"error": "Invalid input"}).encode())
+        return
+    
+def subtract(connectionSocket, data):
+    try:
+        number1, number2 = data["numbers"].split()
+        number1 = int(number1)
+        number2 = int(number2)
+        if number2 > number1:
+            connectionSocket.send(json.dumps({"response": number2 - number1}).encode())
+            return
+        connectionSocket.send(json.dumps({"response": number1 - number2}).encode())
+        return
+    except ValueError:
+        connectionSocket.send(json.dumps({"error": "Invalid input"}).encode())
+        return
+
+def protocol_error(connectionSocket):
+    connectionSocket.send(json.dumps({"error": "Invalid input"}).encode())
+    return
+
 def handle_protocol(connectionSocket):
     operation = connectionSocket.recv(1024).decode()
     operation = json.loads(operation)
     connectionSocket.send(json.dumps({"response": "Input numbers"}).encode())
     data = connectionSocket.recv(1024).decode()
     data = json.loads(data)
-    match operation["operation"]:
+    match operation["operation"].lower():
         case "random":
             random_number(connectionSocket, data)
+        case "add":
+            add(connectionSocket, data)
+        case "subtract":
+            subtract(connectionSocket, data)
         case _:
-            connectionSocket.send(json.dumps({"error": "Invalid operation"}).encode())
+            protocol_error(connectionSocket)
 
 def handle_client_request(connectionSocket, addr):
     print(addr[0])
