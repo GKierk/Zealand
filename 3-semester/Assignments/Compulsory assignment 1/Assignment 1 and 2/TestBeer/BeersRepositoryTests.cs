@@ -81,7 +81,7 @@ public class BeersRepositoryTests
     }
 
     [TestMethod]
-    public void GetByName()
+    public void GetByNameTest()
     {
 
         BeersRepository beersRepository = new BeersRepository();
