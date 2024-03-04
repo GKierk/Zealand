@@ -4,44 +4,67 @@
     derfor de mange tag-navne. */ 
  }
 
- table.toptekst { 
+ .top-bar { 
   font-size: 80%; 
 	background: #FFFFCC; 
 	color: black;
-  border-radius: 5rem;
+  border-radius: 2.5rem;
   width : 100%;
   height: 2.5rem;
   line-height: 2.5rem;
+  padding-left: 1rem;
+  margin-top: 0.5rem;
  }
 
- table.toptekst tr td a{
-  margin-left: 1.5rem;
- }
+.top-margin {
+  margin-top: 2.5%rem;
+}
 
- table.ugeplan {
-	width : 100%;
-}
- tr {
-	vertical-align : top;
-}
- 
-.center {
-  display: flex;
-  flex-direction: column;
+.about {
   margin-top: 10rem;
-  height: 45rem;
-  padding: 2rem;
 }
 
-.bottom {
-  height: 3.5rem;
-  background: #FFFFCC;
-  border-radius: 5rem;
+ .about p {
+  margin: 0;
+ }
+
+.spacing {
+  margin-top: 65%;
 }
 
-.bottom a {
-  margin-left: 1.5rem;
-}
+ .contact p{
+  margin: 0;
+ }
+
+ .teaching p {
+  margin: 0;
+  font-size: 0.8rem;
+ }
+
+ .bottom-bar { 
+  font-size: 0.75rem;
+	background: #FFFFCC; 
+	color: black;
+  border-radius: 2.5rem;
+  width : 100%;
+  height: 4.5rem;
+  padding-left: 1rem;
+  padding-top: 1rem;
+ }
+
+ .bottom-bar p{
+  margin: 0;
+  margin-left: 1rem;
+ }
+
+ .hr {
+  border: 0;
+  height: 0.1rem;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+ }
 
  pre, code { font-family: monospace; }
  div.center { text-align: center; }
@@ -59,8 +82,67 @@
 
 }
 
-@media media and (max-width: 600px) {
-  body {
-    background-color: lightblue;
+@media media and (max-width: 500px) {
+  .top-bar { 
+    font-size: 80%; 
+    background: #FFFFCC; 
+    color: black;
+    border-radius: 2.5rem;
+    width : 100%;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+   }
+  
+  .top-margin {
+    margin-top: 2.5rem;
   }
+  
+  .about {
+    margin-top: 10rem;
+  }
+  
+   .about p {
+    margin: 0;
+   }
+  
+  .spacing {
+    height: 0.5rem;
+  }
+  
+   .contact p{
+    margin: 0;
+   }
+  
+   .teaching p {
+    margin: 0;
+    font-size: 0.8rem;
+   }
+  
+   .bottom-bar { 
+    font-size: 0.75rem;
+    background: #FFFFCC; 
+    color: black;
+    border-radius: 2.5rem;
+    width : 100%;
+    height: 5rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+   }
+  
+   .bottom-bar p{
+    font-size: 0.80rem;
+    margin: 0;
+    margin-left: 1rem;
+   }
+  
+   .hr {
+    border: 0;
+    height: 0.1rem;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+   }
 }
