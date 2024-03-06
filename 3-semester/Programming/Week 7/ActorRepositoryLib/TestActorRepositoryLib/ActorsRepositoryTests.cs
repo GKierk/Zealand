@@ -105,7 +105,7 @@ public class ActorsRepositoryTests
     {
         var repository = new ActorsRepository();
 
-        Assert.ThrowsException<ArgumentNullException>(() => repository.AddActor(null));
+        Assert.ThrowsException<ArgumentNullException>(() => repository.AddActor(null!));
     }
 
     [TestMethod]
