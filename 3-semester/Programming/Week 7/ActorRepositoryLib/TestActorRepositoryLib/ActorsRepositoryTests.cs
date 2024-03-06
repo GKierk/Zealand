@@ -53,6 +53,38 @@ public class ActorsRepositoryTests
     }
 
     [TestMethod]
+    public void Get_WithParameters_ReturnsSortedActors()
+    {
+        var repository = new ActorsRepository();
+        var actor1 = new Actor
+        {
+            Name = "John Doe",
+            BirthYear = 1990
+        };
+        var actor2 = new Actor
+        {
+            Name = "Jane Smith",
+            BirthYear = 1985
+        };
+
+        repository.AddActor(actor1);
+        repository.AddActor(actor2);
+
+        var result = repository.Get(birthYearYearBefore: 1990, birthYearAfter: 1985, sortOrder: "name_desc");
+
+        Assert.IsNotNull(result);
+        CollectionAssert.Contains(result.ToList(), actor2);
+    }
+
+    [TestMethod]
+    public void Get_InvalidParameters_ThrowsArgumentException()
+    {
+        var repository = new ActorsRepository();
+
+        Assert.ThrowsException<ArgumentException>(() => repository.Get(birthYearYearBefore: 1985, birthYearAfter: 1990));
+    }
+
+    [TestMethod]
     public void AddActor_ValidActor_ReturnsAddedActor()
     {
         var repository = new ActorsRepository();

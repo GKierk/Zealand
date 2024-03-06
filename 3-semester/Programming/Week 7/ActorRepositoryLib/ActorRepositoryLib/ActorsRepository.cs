@@ -6,7 +6,7 @@ public class ActorsRepository : IActorsRespository
     private int nextId = 0;
     private List<Actor> actors = new List<Actor>();
 
-    public IEnumerable<Actor> Get(int birthYearYearBefore=2024, int birthYearAfter=1820, string? name=null)
+    public IEnumerable<Actor> Get(int birthYearYearBefore=2024, int birthYearAfter=1820, string? name=null, string sortOrder = null!)
     {
         if (birthYearYearBefore < birthYearAfter)
         {
@@ -16,6 +16,11 @@ public class ActorsRepository : IActorsRespository
         if (string.IsNullOrEmpty(name))
         {
             return actors.Where(a => a.BirthYear <= birthYearYearBefore && a.BirthYear >= birthYearAfter);
+        }
+
+        if (string.IsNullOrEmpty(sortOrder))
+        {
+            return actors.Where(a => a.BirthYear <= birthYearYearBefore && a.BirthYear >= birthYearAfter && a.Name != null && a.Name.Contains(name));
         }
 
         return actors;
