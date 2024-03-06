@@ -2,9 +2,9 @@
 
 public class ActorsRepository : IActorsRepository
 {
-    private readonly ActorsDbContext? context;
+    private readonly ActorsDbContext context;
 
-    public ActorsRepository(ActorsDbContext? context)
+    public ActorsRepository(ActorsDbContext context)
     {
         this.context = context;
     }
@@ -12,19 +12,19 @@ public class ActorsRepository : IActorsRepository
     public Actor AddActor(Actor actor)
     {
         actor.Validate();
-        int id = (int)context?.Actors.Count()!;
+        int id = context.Actors.Count()!;
 
         if (id == 0)
         {
 
             actor.Id = 1;
-            context?.Actors.Add(actor);
+            context.Actors.Add(actor);
             return actor;
         }
 
         actor.Id = ++id;
-        context?.Actors.Add(actor);
-        context?.SaveChanges();
+        context.Actors.Add(actor);
+        context.SaveChanges();
         return actor;
     }
 
