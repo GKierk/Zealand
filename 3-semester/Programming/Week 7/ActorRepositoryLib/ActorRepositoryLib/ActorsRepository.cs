@@ -26,6 +26,8 @@ public class ActorsRepository : IActorsRespository
         return actors;
     }
 
+    public Actor GetById(int id) => actors[id];
+
     public Actor AddActor(Actor actor)
     {
         if (actor!= null)
