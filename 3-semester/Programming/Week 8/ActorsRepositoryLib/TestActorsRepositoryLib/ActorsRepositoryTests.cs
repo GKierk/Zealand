@@ -3,7 +3,7 @@
 namespace ActorRepositoryLib.Tests;
 
 [TestClass]
-public class ActorsRepository
+public class ActorsRepositoryTests
 {
     private const bool useDatabase = true;
     private static ActorsDbContext? dbContext;
@@ -25,7 +25,7 @@ public class ActorsRepository
     {
         if (useDatabase)
         {
-            repo = new ActorsRepository(dbContext);
+            repo = new ActorsRepository(dbContext!);
             dbContext?.Database.ExecuteSqlRaw("Truncate Table dbo.Actors");
         }
 
