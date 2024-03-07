@@ -3,6 +3,7 @@
 public class ActorsRepository : IActorsRepository
 {
     private readonly ActorsDbContext context;
+    private int id = 0;
 
     public ActorsRepository(ActorsDbContext context)
     {
@@ -13,15 +14,6 @@ public class ActorsRepository : IActorsRepository
     {
         actor.Validate();
         int id = context.Actors.Count()!;
-
-        if (id == 0)
-        {
-
-            actor.Id = 1;
-            context.Actors.Add(actor);
-            return actor;
-        }
-
         actor.Id = ++id;
         context.Actors.Add(actor);
         context.SaveChanges();
