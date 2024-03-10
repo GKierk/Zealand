@@ -1,0 +1,38 @@
+button {
+  border-radius: 0.5rem;
+}
+
+input {
+  border-radius: 0.5rem;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  /* align-items: center; */
+}
+
+.box {
+  border: 0.025rem solid black;
+  border-radius: 0.5rem;
+  width: 20rem;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.box input {
+  width: 55%;
+}
+
+.box button {
+  width: 15%;
+}
+
+.fill {
+  width: 45%;
+}
+
+.output {
+  width: 100%;
+  text-align: center;
+}
