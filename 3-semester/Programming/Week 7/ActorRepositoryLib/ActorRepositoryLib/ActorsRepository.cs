@@ -30,29 +30,30 @@ public class ActorsRepository : IActorsRespository
 
     public Actor AddActor(Actor actor)
     {
-        if (actor!= null)
-        {
-            actor.Id = ++nextId;
-        }
-        else
+        if (actor == null)
         {
             throw new ArgumentNullException("Actor cannot be null");
         }
 
+        actor.Id = ++nextId;
         actors.Add(actor);
         return actor;
     }
 
     public Actor Delete(int id)
     {
-        if (id < 0 || id >= actors.Count)
+        if (id < 1 || id > nextId)
         {
             throw new ArgumentOutOfRangeException("Id must be a valid index");
         }
 
-        Actor actor = actors[--id];
-        actors.RemoveAt(id);
-        return actor;
+        Actor actor = actors?.Find(a => a.Id == id)!;
+        if (actor != null)
+        {
+            actors?.Remove(actor);
+            nextId--;
+        }
+        return actor!;
     }
 
     public Actor Update(int id, Actor actor)
