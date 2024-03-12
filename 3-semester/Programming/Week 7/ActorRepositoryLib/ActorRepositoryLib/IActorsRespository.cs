@@ -2,7 +2,7 @@
 
 public interface IActorsRespository
 {
-    public IEnumerable<Actor> Get(int birthYearYearBefore = 2024, int birthYearAfter = 1820, string? name=null, string sortOrder=null!);
+    public IEnumerable<Actor> Get(int? birthYear = null, string? name = null, string? orderBy = null);
     public Actor GetById(int id);
     public Actor AddActor(Actor actor);
     public Actor Delete(int id);

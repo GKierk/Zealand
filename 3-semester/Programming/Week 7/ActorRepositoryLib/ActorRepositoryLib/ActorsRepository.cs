@@ -6,68 +6,51 @@ public class ActorsRepository : IActorsRespository
     private int nextId = 0;
     private List<Actor> actors = new List<Actor>();
 
-    public IEnumerable<Actor> Get(int birthYearYearBefore=2024, int birthYearAfter=1820, string? name=null, string sortOrder = null!)
-    {
-        if (birthYearYearBefore < birthYearAfter)
+    public IEnumerable<Actor> Get(int? birthYear = null, string? name = null, string? orderBy = null)
+    { 
+        IQueryable<Actor> query = actors.AsQueryable();
+
+        if (birthYear != null)
         {
-            throw new ArgumentException("birthYearYearBefore must be greater than birthYearAfter");
+            query = query.Where(a => a.BirthYear == birthYear);
         }
 
-        if (string.IsNullOrEmpty(name))
+        if (name != null)
         {
-            return actors.Where(a => a.BirthYear <= birthYearYearBefore && a.BirthYear >= birthYearAfter);
+            query = query.Where(a => a.Name == name);
         }
 
-        if (string.IsNullOrEmpty(sortOrder))
+        if (orderBy != null)
         {
-            return actors.Where(a => a.BirthYear <= birthYearYearBefore && a.BirthYear >= birthYearAfter && a.Name != null && a.Name.Contains(name));
+            query = orderBy switch
+            {
+                "name" => query.OrderBy(a => a.Name),
+                "birthYear" => query.OrderBy(a => a.BirthYear),
+                _ => query
+            };
         }
 
-        return actors;
+        return query;
     }
 
     public Actor GetById(int id) => actors[id];
 
     public Actor AddActor(Actor actor)
     {
-        if (actor == null)
-        {
-            throw new ArgumentNullException("Actor cannot be null");
-        }
-
-        actor.Id = ++nextId;
+        actor.Id = nextId++;
         actors.Add(actor);
         return actor;
     }
 
     public Actor Delete(int id)
     {
-        if (id < 1 || id > nextId)
-        {
-            throw new ArgumentOutOfRangeException("Id must be a valid index");
-        }
-
         Actor actor = actors?.Find(a => a.Id == id)!;
-        if (actor != null)
-        {
-            actors?.Remove(actor);
-            nextId--;
-        }
+        actors?.Remove(actor);
         return actor!;
     }
 
     public Actor Update(int id, Actor actor)
     {
-        if (id < 0)
-        {
-            throw new ArgumentOutOfRangeException("Id must be a valid index");
-        }
-
-        if (actor == null)
-        {
-            throw new ArgumentNullException("Actor cannot be null");
-        }
-
         actors[id] = actor;
         return actor;
     }

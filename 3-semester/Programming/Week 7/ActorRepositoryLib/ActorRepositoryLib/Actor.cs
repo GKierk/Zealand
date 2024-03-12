@@ -13,36 +13,36 @@ public class Actor : IActor
 
     public bool ValidateId()
     {
-        if (Id < 1)
+        if (Id > 0)
         {
-            throw new ArgumentException("Id must be greater than 0");
+            return true;
         }
 
-        return true;
+        throw new ArgumentException("Id must be greater than 0");
     }
 
     public bool ValidateName()
     {
-        if (string.IsNullOrEmpty(Name))
+        if (!string.IsNullOrEmpty(Name) && Name.Length >= 3)
         {
-            throw new ArgumentException("Name cannot be null or empty");
+            return true;
         }
 
-        if (Name.Length < 3)
-        {
-            throw new ArgumentException("Name must be at least 3 characters long");
-        }
-
-        return true;
+        throw new ArgumentException("Name can't be empty and must be at least 3 charaters long.");
     }
 
     public bool ValidateBirthYear()
     {
-        if (BirthYear <= 1820)
+        if (BirthYear >= 1820)
         {
-            throw new ArgumentException("Birth year must be greater than 1820");
+            return true;
         }
 
-        return true;
+        throw new ArgumentException("Birth year must be greater than 1820");
+    }
+
+    public bool Validate()
+    {
+        return ValidateId() && ValidateName() && ValidateBirthYear();
     }
 }
