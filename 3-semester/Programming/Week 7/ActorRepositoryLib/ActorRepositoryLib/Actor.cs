@@ -11,15 +11,15 @@ public class Actor : IActor
         return $"Id: {Id}, Name: {Name}, BirthYear: {BirthYear}";
     }
 
-    public bool ValidateId()
-    {
-        if (Id > 0)
-        {
-            return true;
-        }
+    //public bool ValidateId()
+    //{
+    //    if (Id > 0)
+    //    {
+    //        return true;
+    //    }
 
-        throw new ArgumentException("Id must be greater than 0");
-    }
+    //    throw new ArgumentException("Id must be greater than 0");
+    //}
 
     public bool ValidateName()
     {
@@ -43,6 +43,6 @@ public class Actor : IActor
 
     public bool Validate()
     {
-        return ValidateId() && ValidateName() && ValidateBirthYear();
+        return ValidateName() && ValidateBirthYear();
     }
 }

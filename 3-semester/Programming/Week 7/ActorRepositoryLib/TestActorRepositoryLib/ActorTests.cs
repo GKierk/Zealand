@@ -3,25 +3,25 @@ namespace ActorRepositoryLib.Tests;
 [TestClass]
 public class ActorTests
 {
-    [TestMethod]
-    public void ValidateId_ValidId_ReturnsTrue()
-    {
-        var actor = new Actor();
-        actor.Id = 1;
+    //[TestMethod]
+    //public void ValidateId_ValidId_ReturnsTrue()
+    //{
+    //    var actor = new Actor();
+    //    actor.Id = 1;
 
-        var result = actor.ValidateId();
+    //    var result = actor.ValidateId();
 
-        Assert.IsTrue(result);
-    }
+    //    Assert.IsTrue(result);
+    //}
 
-    [TestMethod]
-    public void ValidateId_InvalidId_ThrowsArgumentException()
-    {
-        var actor = new Actor();
-        actor.Id = 0;
+    //[TestMethod]
+    //public void ValidateId_InvalidId_ThrowsArgumentException()
+    //{
+    //    var actor = new Actor();
+    //    actor.Id = 0;
 
-        Assert.ThrowsException<ArgumentException>(() => actor.ValidateId());
-    }
+    //    Assert.ThrowsException<ArgumentException>(() => actor.ValidateId());
+    //}
 
     [TestMethod]
     public void ValidateName_ValidName_ReturnsTrue()

@@ -8,6 +8,6 @@ public interface IActor
 
     public string ToString();
     public bool ValidateBirthYear();
-    public bool ValidateId();
+    //public bool ValidateId();
     public bool ValidateName();
 }
