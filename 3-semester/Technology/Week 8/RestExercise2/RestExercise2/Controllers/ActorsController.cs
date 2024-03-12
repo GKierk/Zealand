@@ -25,12 +25,12 @@ namespace RestExercise1.Controllers
         {
             List<Actor> actors = repository?.Get().ToList()!;
 
-            if (!actors.Any())
+            if (actors.Any())
             {
-                return NotFound("No Actors found");
+                return Ok(actors);
             }
 
-            return Ok(actors);
+            return NotFound("No Actors found");
         }
 
         // GET api/<ActorsController>/5
@@ -40,12 +40,12 @@ namespace RestExercise1.Controllers
         public IActionResult Get(int id)
         {
             Actor actor = repository?.GetById(id)!;
-            if (actor == null)
+            if (actor.Validate())
             {
-                return NotFound("No such actor, id: " + id);
+                return Ok(actor);
             }
 
-            return Ok(actor);
+            return NotFound("No such actor, id: " + id);
         }
 
         // POST api/<ActorsController>
@@ -54,14 +54,14 @@ namespace RestExercise1.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] Actor value)
         {
-            Actor actor = repository?.AddActor(value)!;
-
-            if (actor == null)
+            if(value.Validate())
             {
-                return BadRequest();
+                Actor actor = value;
+                repository?.AddActor(actor);
+                return Ok(value);
             }
 
-            return Ok(actor);
+            return BadRequest();
         }
 
         // PUT api/<ActorsController>/5
@@ -70,14 +70,14 @@ namespace RestExercise1.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] Actor value)
         {
-            Actor actor = repository?.Update(id, value)!;
-
-            if (repository!.Get().Any(a => a.Id != id) || actor == null)
+            if(value.Validate() && repository!.Get().Any(a => a.Id == id))
             {
-                return Conflict();
+                Actor actor = value;
+                repository?.Update(id, actor);
+                return Ok(value);
             }
 
-            return Ok(actor);
+            return Conflict();
         }
 
         // DELETE api/<ActorsController>/5
@@ -88,12 +88,12 @@ namespace RestExercise1.Controllers
         {
             Actor actor = repository?.Delete(id)!;
 
-            if(repository!.Get().Any(a => a.Id != id))
+            if(actor.Validate() && repository!.Get().Any(a => a.Id == id))
             {
-                return NotFound();
+                return Ok(actor);
             }
 
-            return Ok(actor);
+            return NotFound();
         }
     }
 }
