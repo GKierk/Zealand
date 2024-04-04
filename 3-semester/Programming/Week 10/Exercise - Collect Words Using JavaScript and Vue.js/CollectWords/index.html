@@ -12,14 +12,14 @@
       <span class="fill"></span>
       <div class="box">
         <div class="container">
-          <input type="text" v-model="word" />
-          <button @click="save" type="button">Save</button>
-          <button @click="show" type="button">Show</button>
-          <button @click="clear" type="button">Clear</button>
+          <input id="input" type="text" v-model="word" />
+          <button id="save" @click="save" type="button">Save</button>
+          <button id="show" @click="show" type="button">Show</button>
+          <button id="clear" @click="clear" type="button">Clear</button>
         </div>
-        <div class="output"></div>
+        <div class="outputField"></div>
         <span class="fill">
-          <p>{{ message }}</p>
+          <p id="outputField">{{ message }}</p>
         </span>
       </div>
     </div>
