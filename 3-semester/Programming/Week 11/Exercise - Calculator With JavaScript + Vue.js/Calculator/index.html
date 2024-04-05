@@ -15,21 +15,22 @@
   <body>
     <div id="app" class="container">
       <div class="row">
-        <input v-model.number="num1" type="number" class="col" />
-        <select v-model="operation" class="form-select col">
+        <input id="num1" v-model.number="num1" type="number" class="col" />
+        <select id="operation" v-model="operation" class="form-select col">
           <option value="+">+</option>
           <option value="-">-</option>
           <option value="*">*</option>
           <option value="/">/</option>
         </select>
-        <input v-model.number="num2" type="number" class="col" />
+        <input id="num2" v-model.number="num2" type="number" class="col" />
         <input
+          id="calculate"
           @click="calculate"
           type="button"
           value="="
           class="col btn btn-primary"
         />
-        <div class="col">{{ result }}</div>
+        <div id="result" class="col">{{ result }}</div>
       </div>
     </div>
     <script src="js/index.js"></script>
