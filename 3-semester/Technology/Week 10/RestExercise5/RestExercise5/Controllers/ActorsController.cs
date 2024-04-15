@@ -52,13 +52,25 @@ namespace RestExercise1.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet]
         [EnableCors("AllowAll")]
-        public IActionResult Get([FromQuery] int birthYear, [FromQuery] string name, [FromQuery] string orderBy)
+        public IActionResult Get([FromQuery] int? birthYear = null, [FromQuery] string? name = null, [FromQuery] string? orderBy = null)
         {
             List<Actor> actors = repository?.Get().ToList()!;
 
             if (actors.Any())
             {
-                return Ok(repository!.Get(birthYear, name, orderBy));
+                List<Actor>? actorResult = null;
+                
+                if (birthYear != null || name != null || orderBy != null)
+                {
+                    actorResult = repository?.Get(birthYear, name, orderBy).ToList();
+                }
+
+                if (actorResult != null)
+                {
+                    return Ok(repository!.Get(birthYear, name, orderBy));
+                }
+
+                return Ok(actors);
             }
 
             return NotFound("No Actors found");
