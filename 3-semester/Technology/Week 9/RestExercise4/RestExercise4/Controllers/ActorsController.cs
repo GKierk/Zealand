@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using ActorRepositoryLib;
+using Microsoft.AspNetCore.Cors;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -50,6 +51,7 @@ namespace RestExercise1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet]
+        [EnableCors("AllowAll")]
         public IActionResult Get([FromHeader] int startIndex, [FromHeader] int amount)
         {
             List<Actor> actors = repository?.Get().ToList()!;
@@ -78,6 +80,7 @@ namespace RestExercise1.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id}")]
+        [EnableCors("AllowAll")]
         public IActionResult GetId(int id)
         {
             Actor actor = repository?.GetById(id)!;
@@ -93,6 +96,7 @@ namespace RestExercise1.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
+        [EnableCors("AllowAll")]
         public ActionResult Post([FromBody] Actor value)
         {
             if(value.Validate())
@@ -109,6 +113,7 @@ namespace RestExercise1.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [HttpPut("{id}")]
+        [EnableCors("AllowAll")]
         public ActionResult Put(int id, [FromBody] Actor value)
         {
             if(value.Validate() && repository!.Get().Any(a => a.Id == id))
@@ -125,6 +130,7 @@ namespace RestExercise1.Controllers
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{id}")]
+        [EnableCors("AllowAll")]
         public ActionResult Delete(int id)
         {
             Actor actor = repository?.Delete(id)!;
