@@ -48,9 +48,9 @@ public class Student
     {
         List<Course> existingCourses = CoursesRepository.Instance.Courses;
 
-        foreach (Course course in existingCourses)
+        foreach (Course course in CoursesRepository.Instance.Courses)
         {
-            if (EnrolledCourses!.ToString() != course.Name)
+            if (!existingCourses.Any(c => c.Name == course.Name))
             {
                 throw new CourseNotValidException("One of the selected courses is not available as one of the courses offered.");
             }
