@@ -9,25 +9,32 @@ namespace SimpleRestExercise.Controllers
     [ApiController]
     public class StudentsController : ControllerBase
     {
+        private readonly StudentsRepository studentsRepository;
+
+        public StudentsController(StudentsRepository studentsRepository) 
+        {
+            this.studentsRepository = studentsRepository;
+        }
+
         // GET: api/<StudentsController>
         [HttpGet]
         public IEnumerable<Student> Get()
         {
-            return StudentsRepository.Instance.Read();
+            return studentsRepository.Read();
         }
 
         // GET api/<StudentsController>/5
         [HttpGet("{id}")]
         public Student Get(int id)
         {
-            return StudentsRepository.Instance.Read(id);
+            return studentsRepository.Read(id);
         }
 
         // POST api/<StudentsController>
         [HttpPost]
         public async Task Post([FromBody] Student student)
         {
-            await StudentsRepository.Instance.CreateAsync(student);
+            await studentsRepository.CreateAsync(student);
         }
 
         // PUT api/<StudentsController>/5
