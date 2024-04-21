@@ -4,18 +4,18 @@ namespace SimpleRestExercise.Utilities;
 
 public class FileReader<T>
 {
-    private static readonly string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-    private static readonly string relativeFolderPath = "Data";
+    private static readonly string baseDirectory = "Data";
+    //private static readonly string relativeFolderPath = "Data";
 
 
-    public async Task SaveAsync(string fileName, T data)
+    public async Task SaveAsync(string fileName, List<T> data)
     {
         if (string.IsNullOrEmpty(fileName))
         {
             throw new FileNotFoundException("File name cannot be null or empty.");
         }
 
-        string filePath = Path.Combine(baseDirectory, relativeFolderPath, fileName);
+        string filePath = Path.Combine(baseDirectory, fileName);
 
         if (!File.Exists(filePath))
         {
@@ -33,7 +33,7 @@ public class FileReader<T>
             throw new FileNotFoundException("File name cannot be null or empty.");
         }
 
-        string filePath = Path.Combine(baseDirectory, relativeFolderPath, fileName);
+        string filePath = Path.Combine(baseDirectory, fileName);
 
         if (!File.Exists(filePath))
         {
