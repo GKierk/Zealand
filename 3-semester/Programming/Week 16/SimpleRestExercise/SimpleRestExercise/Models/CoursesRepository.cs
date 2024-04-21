@@ -4,27 +4,9 @@ namespace SimpleRestExercise.Models;
 
 public class CoursesRepository
 {
-    private static CoursesRepository? instance = null;
-    private static readonly object padlock = new object();
     private static readonly string file = "course_data.json";
     private List<Course> courses = new List<Course>();
-
-    public static CoursesRepository Instance
-    {
-        get
-        {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new CoursesRepository();
-                }
-
-                return instance;
-            }
-        }
-    }
-
+    private FileReader<Course> fileReader = new FileReader<Course>(); 
 
     public List<Course> Courses
     {
@@ -42,7 +24,7 @@ public class CoursesRepository
 
     private async Task LoadCoursesAsync()
     {
-        List<Course>? loadedCourses = await FileReader<Course>.Instance!.Load(file);
+        List<Course>? loadedCourses = await fileReader.LoadAsync(file);
 
         if (loadedCourses != null)
         {
