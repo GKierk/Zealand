@@ -1,6 +1,0 @@
-@SimpleRestExercise_HostAddress = http://localhost:5019
-
-GET {{SimpleRestExercise_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
