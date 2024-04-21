@@ -1,9 +1,12 @@
 ﻿using SimpleRestExercise.Exceptions;
+using System.Text.Json.Serialization;
 
 namespace SimpleRestExercise.Models;
 
 public class Student
 {
+    private CoursesRepository? courseRepository;
+
     public int Id { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
@@ -15,6 +18,13 @@ public class Student
     {
         get { return enrolledCourses; }
         set { enrolledCourses = value; }
+    }
+
+    public Student() { }
+
+    public Student(CoursesRepository coursesRepository) 
+    {
+        this.courseRepository = coursesRepository;
     }
 
     public override string ToString()
@@ -50,7 +60,7 @@ public class Student
 
     public void VerifyEnrolledCourses()
     {
-        List<Course> existingCourses = CoursesRepository.Instance.Courses;
+        List<Course> existingCourses = courseRepository!.Courses;
 
         foreach (Course course in EnrolledCourses)
         {
