@@ -13,11 +13,6 @@ namespace SimpleRestExercise.Controllers
         [HttpGet]
         public IEnumerable<Student> Get()
         {
-            foreach (var student in StudentsRepository.Instance.Read())
-            {
-                Console.WriteLine(student);
-            }
-
             return StudentsRepository.Instance.Read();
         }
 
