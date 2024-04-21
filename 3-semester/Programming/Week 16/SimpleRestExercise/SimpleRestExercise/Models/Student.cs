@@ -11,7 +11,11 @@ public class Student
 
     private List<Course> enrolledCourses = new List<Course>();
 
-    public List<Course>? EnrolledCourses => enrolledCourses;
+    public List<Course> EnrolledCourses
+    {
+        get { return enrolledCourses; }
+        set { enrolledCourses = value; }
+    }
 
     public override string ToString()
     {
