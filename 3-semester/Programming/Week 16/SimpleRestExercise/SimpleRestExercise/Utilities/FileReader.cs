@@ -8,7 +8,7 @@ public class FileReader<T>
     private static readonly string relativeFolderPath = "Data";
 
 
-    public async Task Save(string fileName, T data)
+    public async Task SaveAsync(string fileName, T data)
     {
         if (string.IsNullOrEmpty(fileName))
         {
@@ -26,7 +26,7 @@ public class FileReader<T>
         await JsonSerializer.SerializeAsync(createStream, data);
     }
 
-    public async Task<List<T>?> Load(string fileName)
+    public async Task<List<T>?> LoadAsync(string fileName)
     {
         if (string.IsNullOrEmpty(fileName))
         {
