@@ -9,6 +9,11 @@ public class Student
     public string? LastName { get; set; }
     public string FullName => $"{FirstName} {LastName}";
 
+    public override string ToString()
+    {
+        return FullName;
+    }
+
     public int VerifyId()
     {
         if (Id < 0)
