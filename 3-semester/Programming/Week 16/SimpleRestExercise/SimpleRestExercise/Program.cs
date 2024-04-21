@@ -1,9 +1,11 @@
 using SimpleRestExercise.Models;
+using SimpleRestExercise.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<StudentsRepository>();
+builder.Services.AddSingleton<CoursesRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
