@@ -1,4 +1,4 @@
-﻿using SimpleRestExercise.Utillities;
+﻿using SimpleRestExercise.Utilities;
 
 namespace SimpleRestExercise.Models;
 
@@ -51,7 +51,7 @@ public class StudentsRepository
 
     private void OnDataLoaded()
     {
-        StudentsLoaded!.Invoke(this, EventArgs.Empty);
+        StudentsLoaded?.Invoke(this, EventArgs.Empty);
     }
 
     public async Task<Student> CreateAsync(Student student)
