@@ -22,4 +22,4 @@ public class Course
             throw new NameNotValidException("The course name can't be empty");
         }
     }
-}
+}   
