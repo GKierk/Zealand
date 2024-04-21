@@ -1,9 +1,12 @@
-﻿namespace SimpleRestExercise.Models;
+﻿using SimpleRestExercise.Utillities;
+
+namespace SimpleRestExercise.Models;
 
 public class StudentsRepository
 {
     private static StudentsRepository? instance = null;
-    public static readonly object padlock = new object();
+    private static readonly object padlock = new object();
+    private static readonly string file = "students_data.json";
     private List<Student> students = new List<Student>();
 
     public static StudentsRepository Instance
@@ -22,20 +25,48 @@ public class StudentsRepository
         }
     }
 
-    public List<Student> Students => students;
-
-    public Student Create(Student student)
+    public List<Student> Students
     {
-        if (Students.Count() == 0)
+        get { return students; }
+        set { students = value; }
+    }
+
+    public event EventHandler? StudentsLoaded;
+
+    public async Task InitializeAsync()
+    {
+        await LoadStudentsAsync();
+        OnDataLoaded();
+    }
+
+    private async Task LoadStudentsAsync()
+    {
+        List<Student>? loadedStudents = await FileReader<Student>.Instance!.Load(file);
+
+        if (loadedStudents != null)
+        {
+            Students = loadedStudents;
+        }
+    }
+
+    private void OnDataLoaded()
+    {
+        StudentsLoaded!.Invoke(this, EventArgs.Empty);
+    }
+
+    public async Task<Student> CreateAsync(Student student)
+    {
+        if (Students.Count == 0)
         {
             student.Id = 1;
         }
         else
         {
-            student.Id = students.Count() + 1;
+            student.Id = students.Count + 1;
         }
 
         Students.Add(student);
+        await FileReader<Student>.Instance!.Save(file, student);
 
         return student;
     }
