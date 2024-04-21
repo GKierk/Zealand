@@ -2,7 +2,25 @@
 
 public class StudentsRepository
 {
+    private static StudentsRepository? instance = null;
+    public static readonly object padlock = new object();
     private List<Student> students = new List<Student>();
+
+    public static StudentsRepository Instance
+    {
+        get
+        {
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new StudentsRepository();
+                }
+
+                return instance;
+            }
+        }
+    }
 
     public List<Student> Students => students;
 
