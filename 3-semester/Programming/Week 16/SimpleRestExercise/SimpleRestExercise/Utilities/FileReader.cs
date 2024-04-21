@@ -34,10 +34,7 @@ public class FileReader<T>
 
         string filePath = Path.Combine(baseDirectory, relativeFolderPath, fileName);
 
-        if (!File.Exists(filePath))
-        {
-            throw new FileNotFoundException($"{filePath} does not exist");
-        }
+        Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
         await using FileStream createStream = File.Create(filePath);
         await JsonSerializer.SerializeAsync(createStream, data);
