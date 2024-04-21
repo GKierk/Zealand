@@ -6,6 +6,8 @@ public class FileReader<T>
 {
     private static FileReader<T>? instance = null;
     private static readonly object padlock = new object();
+    private static readonly string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+    private static readonly string relativeFolderPath = "Data";
 
     public static FileReader<T>? Instance
     {
@@ -23,25 +25,29 @@ public class FileReader<T>
         }
     }
 
-    public async Task Save(string path, T data)
+    public async Task Save(string fileName, T data)
     {
-        if (string.IsNullOrEmpty(path))
+        if (string.IsNullOrEmpty(fileName))
         {
             throw new FileNotFoundException("The specified file does not exist.");
         }
 
-        await using FileStream createStream = File.Create(path);
+        string filePath = Path.Combine(baseDirectory, relativeFolderPath, fileName);
+
+        await using FileStream createStream = File.Create(filePath);
         await JsonSerializer.SerializeAsync(createStream, data);
     }
 
-    public async Task<List<T>?> Load(string path)
+    public async Task<List<T>?> Load(string fileName)
     {
-        if (string.IsNullOrEmpty(path))
+        if (string.IsNullOrEmpty(fileName))
         {
             throw new FileNotFoundException("The specified file does not exist");
         }
 
-        await using FileStream openStream = File.OpenRead(path);
+        string filePath = Path.Combine(baseDirectory, relativeFolderPath, fileName);
+
+        await using FileStream openStream = File.OpenRead(filePath);
         return await JsonSerializer.DeserializeAsync<List<T>>(openStream);
     }
 }
