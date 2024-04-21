@@ -1,4 +1,4 @@
-﻿using SimpleRestExercise.Utillities;
+﻿using SimpleRestExercise.Utilities;
 
 namespace SimpleRestExercise.Models;
 
