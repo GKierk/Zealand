@@ -1,9 +1,12 @@
-﻿namespace SimpleRestExercise.Models;
+﻿using SimpleRestExercise.Utillities;
+
+namespace SimpleRestExercise.Models;
 
 public class CoursesRepository
 {
     private static CoursesRepository? instance = null;
     private static readonly object padlock = new object();
+    private static readonly string file = "course_data.json";
 
     public static CoursesRepository Instance
     {
@@ -21,14 +24,24 @@ public class CoursesRepository
         }
     }
 
-    List<Course> existingCourses = new List<Course>()
-    {
-        new Course() { Id = 1, Name = "Programming" },
-        new Course() { Id = 2, Name = "Technology" },
-        new Course() { Id = 3, Name = "System Development" }
-    };
+    List<Course> existingCourses = new List<Course>();
 
     public List<Course> Courses => existingCourses;
+
+    public CoursesRepository()
+    {
+        LoadCoursesAsync().Wait();
+    }
+
+    private async Task LoadCoursesAsync()
+    {
+        List<Course>? loadedCourses = await FileReader<Course>.Instance!.Load(file);
+
+        if (loadedCourses != null)
+        {
+            existingCourses = loadedCourses;
+        }
+    }
 
     public IEnumerable<Course> Read()
     {
