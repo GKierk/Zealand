@@ -52,7 +52,7 @@ public class Student
     {
         List<Course> existingCourses = CoursesRepository.Instance.Courses;
 
-        foreach (Course course in CoursesRepository.Instance.Courses)
+        foreach (Course course in EnrolledCourses)
         {
             if (!existingCourses.Any(c => c.Name == course.Name))
             {
