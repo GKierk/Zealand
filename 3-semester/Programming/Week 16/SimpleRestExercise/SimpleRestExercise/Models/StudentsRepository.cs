@@ -4,26 +4,9 @@ namespace SimpleRestExercise.Models;
 
 public class StudentsRepository
 {
-    private static StudentsRepository? instance = null;
-    private static readonly object padlock = new object();
     private static readonly string file = "students_data.json";
     private List<Student> students = new List<Student>();
-
-    public static StudentsRepository Instance
-    {
-        get
-        {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new StudentsRepository();
-                }
-
-                return instance;
-            }
-        }
-    }
+    private FileReader<Student> fileReader = new FileReader<Student>();
 
     public List<Student> Students
     {
@@ -41,7 +24,7 @@ public class StudentsRepository
 
     private async Task LoadStudentsAsync()
     {
-        List<Student>? loadedStudents = await FileReader<Student>.Instance!.Load(file);
+        List<Student>? loadedStudents = await fileReader.LoadAsync(file);
 
         if (loadedStudents != null)
         {
@@ -62,11 +45,11 @@ public class StudentsRepository
         }
         else
         {
-            student.Id = students.Count + 1;
+            student.Id = Students.Max(s => s.Id) + 1;
         }
 
         Students.Add(student);
-        await FileReader<Student>.Instance!.Save(file, student);
+        await fileReader.SaveAsync(file, Students);
 
         return student;
     }
