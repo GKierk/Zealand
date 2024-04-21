@@ -7,6 +7,7 @@ public class CoursesRepository
     private static CoursesRepository? instance = null;
     private static readonly object padlock = new object();
     private static readonly string file = "course_data.json";
+    private List<Course> existingCourses = new List<Course>();
 
     public static CoursesRepository Instance
     {
@@ -24,7 +25,6 @@ public class CoursesRepository
         }
     }
 
-    List<Course> existingCourses = new List<Course>();
 
     public List<Course> Courses => existingCourses;
 
