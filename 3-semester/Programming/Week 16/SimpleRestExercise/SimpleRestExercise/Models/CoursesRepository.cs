@@ -7,7 +7,7 @@ public class CoursesRepository
     private static CoursesRepository? instance = null;
     private static readonly object padlock = new object();
     private static readonly string file = "course_data.json";
-    private List<Course> existingCourses = new List<Course>();
+    private List<Course> courses = new List<Course>();
 
     public static CoursesRepository Instance
     {
@@ -26,11 +26,18 @@ public class CoursesRepository
     }
 
 
-    public List<Course> Courses => existingCourses;
-
-    public CoursesRepository()
+    public List<Course> Courses
     {
-        LoadCoursesAsync().Wait();
+        get { return courses; }
+        set { courses = value; }
+    }
+
+    public event EventHandler? CoursesLoaded;
+
+    public async Task InitializeAsync()
+    {
+        await LoadCoursesAsync();
+        OnDataLoaded();
     }
 
     private async Task LoadCoursesAsync()
@@ -39,8 +46,13 @@ public class CoursesRepository
 
         if (loadedCourses != null)
         {
-            existingCourses = loadedCourses;
+            Courses = loadedCourses;
         }
+    }
+
+    private void OnDataLoaded()
+    {
+        CoursesLoaded!.Invoke(this, EventArgs.Empty);
     }
 
     public IEnumerable<Course> Read()
