@@ -1,6 +1,6 @@
 ﻿namespace SimpleRestExercise.Exceptions;
 
-public class NameNotValidException: Exception
+public class NameNotValidException : Exception
 {
     public NameNotValidException() { }
 
